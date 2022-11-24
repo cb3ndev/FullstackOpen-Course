@@ -1,7 +1,9 @@
+import SinglePerson from "./SinglePerson"
+
 const Persons = ({arrayPersons}) => {
   return (
     <>
-  		{arrayPersons.map(person => <div key={person.name}> {person.name} {person.number} </div> )}
+  		{arrayPersons.map(person => <SinglePerson key={person.name} name={person.name} number={person.number} /> )}
     </>
   )
 }
