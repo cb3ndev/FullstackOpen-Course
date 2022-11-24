@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import SearchFilter from './Components/SearchFilter'
+import Filter from './Components/Filter'
 import PersonForm from './Components/PersonForm'
 import Persons from './Components/Persons'
 
@@ -47,7 +47,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <SearchFilter onChangefunc={filterPersonsByName}/>
+      <Filter onChangefunc={filterPersonsByName}/>
       
       <h2>Add a new</h2>
       <PersonForm

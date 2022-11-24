@@ -1,4 +1,4 @@
-const SearchFilter = ({onChangefunc}) => {
+const Filter = ({onChangefunc}) => {
   return (
     <div>
 			filter shown with
@@ -7,4 +7,4 @@ const SearchFilter = ({onChangefunc}) => {
   )
 }
 
-export default SearchFilter
+export default Filter
