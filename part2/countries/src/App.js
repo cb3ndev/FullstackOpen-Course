@@ -13,7 +13,6 @@ const App = () => {
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
         setCountries(response.data)
-        //setFilteredCountries(response.data)
       })
   }, [])
   

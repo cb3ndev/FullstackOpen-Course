@@ -11,7 +11,6 @@ const SingleCountry = ({countryobject}) => {
       .get(apiURL)
       .then(response => {
         setWeatherData(response.data)
-        //setFilteredCountries(response.data)
       })
   }, [apiURL])
 	return (
