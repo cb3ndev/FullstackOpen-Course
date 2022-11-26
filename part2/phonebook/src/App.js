@@ -3,10 +3,15 @@ import Filter from './Components/Filter'
 import PersonForm from './Components/PersonForm'
 import Persons from './Components/Persons'
 import personService from './Services/persons'
+import Notification from './Components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [filteredPersons, setFilteredPersons] = useState([])
+  const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [succcesMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -15,10 +20,8 @@ const App = () => {
         setPersons(response)
         setFilteredPersons(response)
       })
+      .catch(error=>console.log(error.message))
   }, [])
-
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
 
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
@@ -44,7 +47,16 @@ const App = () => {
         .then(response => {
           setPersons(persons.map(person => person.id !== ifExistArray[0].id ? person : response))
           setFilteredPersons(persons.map(person => person.id !== ifExistArray[0].id ? person : response))
-        })
+          //succes message  
+          setSuccessMessage(`Updated ${notePerson.name} `)
+          setTimeout(() => {setSuccessMessage(null)}, 3000)
+          })
+        .catch(error => {
+          setErrorMessage(`Information of ${newName} has already been removed from server!`)
+          setTimeout(() => {setErrorMessage(null)}, 3000)
+          setPersons(persons.filter(n => n.id !== ifExistArray[0].id))
+          setFilteredPersons(persons.filter(n => n.id !== ifExistArray[0].id))
+          })
       }
     } else {
       personService
@@ -54,8 +66,11 @@ const App = () => {
           setFilteredPersons(persons.concat(response))
           setNewName('')
           setNewNumber('')
+          //succes message  
+          setSuccessMessage(`Added ${notePerson.name} `)
+          setTimeout(() => {setSuccessMessage(null)}, 3000)
         })
-       
+        .catch(error=>console.log(error.message))
       
     }
   }
@@ -68,7 +83,8 @@ const App = () => {
         setPersons(persons.filter(person => person.id !== id))
         setFilteredPersons(persons.filter(person => person.id !== id))
         console.log("person deleted, status:", response.status)
-      })   
+      })  
+      .catch(error=>console.log(error.message)) 
     }
   }
 
@@ -80,6 +96,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification  className='success' message={succcesMessage}/>
+      <Notification  className='error' message={errorMessage}/>
       <Filter onChangefunc={filterPersonsByName}/>
       
       <h2>Add a new</h2>
