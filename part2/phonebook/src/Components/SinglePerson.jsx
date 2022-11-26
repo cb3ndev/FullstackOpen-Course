@@ -1,6 +1,6 @@
 const SinglePerson = ({name, number}) => {
   return (
-    <div> {name} {number} </div>
+    <span> {name} {number} </span>
   )
 }
 
