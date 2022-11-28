@@ -1,7 +1,14 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 
 app.use(express.json())
+
+//morgan middleware:
+morgan.token('postContent', function getBody (req) {
+  return JSON.stringify(req.body)
+})
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :postContent'))
 
 personsData = [
   { 
@@ -25,13 +32,6 @@ personsData = [
     "number": "39-23-6423122"
   }
 ]
-
-// const generateId = () => {
-//   const maxId = notes.length > 0
-//     ? Math.max(...notes.map(n => n.id))
-//     : 0
-//   return maxId + 1
-// }
 
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
