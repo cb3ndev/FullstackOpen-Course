@@ -38,9 +38,9 @@ personsData = [
   }
 ]
 
-// app.get('/', (request, response) => {
-//   response.send('<h1>Hello World!</h1>')
-// })
+app.get('/', (request, response) => {
+  response.send('<h1>Hello World!</h1>')
+})
 
 app.get('/info', (request, response) => {
   const date = new Date()
