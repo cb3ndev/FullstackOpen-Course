@@ -27,18 +27,19 @@ mongoose
   .connect(url)
   .then((result) => {
     console.log('connected')
+    console.log('result', result)
     if (!newName && !newNumber)
     {
       Person.find({}).then(result => {
-        console.log("Phonebook:")
+        console.log('Phonebook:')
         result.forEach(person => {
-          console.log(person.name," ",person.number)
+          console.log(person.name,' ',person.number)
         })
         mongoose.connection.close()
       })
     }else {
       const person = new Person({
-        name: newName, 
+        name: newName,
         number: newNumber,
       })
       person.save().then(() => {

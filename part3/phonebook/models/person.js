@@ -4,10 +4,12 @@ const url = process.env.MONGODB_URI
 console.log('connecting to', url)
 mongoose.connect(url)
   .then(result => {
-    console.log('connected to MongoDB')  })
-    .catch((error) => {
-      console.log('error connecting to MongoDB:', error.message)
-    }
+    console.log('connected to MongoDB')
+    console.log('result', result)
+  })
+  .catch((error) => {
+    console.log('error connecting to MongoDB:', error.message)
+  }
   )
 
 const personSchema = new mongoose.Schema({
@@ -21,27 +23,14 @@ const personSchema = new mongoose.Schema({
     type: String,
     validate: {
       validator: function(v) {
-        const test = /^\d{2,3}-\d{6,}$/.test(v) //"^" & "$" match whole number 
-        return test;
+        const test = /^\d{2,3}-\d{6,}$/.test(v) //"^" & "$" match whole number
+        return test
       },
       message: props => `${props.value} is not a valid phone number!`
     },
     required: true
   }
 })
-
-// const noteSchema = new mongoose.Schema({
-//   content: {
-//     type: String,
-//     minLength: 5,
-//     required: true
-//   },
-//   date: {
-//     type: Date,
-//     required: true
-//   },
-//   important: Boolean
-// })
 
 personSchema.set('toJSON', {
   transform: (document, returnedObject) => {

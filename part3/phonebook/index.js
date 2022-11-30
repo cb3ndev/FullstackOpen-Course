@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config()
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
@@ -26,7 +26,7 @@ app.get('/info', (request, response) => {
   Person.count({}, function( err, count){
     response.send(`<div>Phonebook has info for ${count} people</div> <div>${date}<div/>`)
   })
-  
+
 })
 
 app.get('/api/persons', (request, response) => {
@@ -43,20 +43,20 @@ app.get('/api/persons/:id', (request, response, next) => {
       response.status(404).end()
     }
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
-app.post('/api/persons', (request, response, next) => {  
+app.post('/api/persons', (request, response, next) => {
   const body = request.body
-  
+
   if (!body.name) {
-    return response.status(400).json({ 
+    return response.status(400).json({
       error: 'name missing'
     })
   }
   if (!body.number) {
-    return response.status(400).json({ 
-      error: 'number missing' 
+    return response.status(400).json({
+      error: 'number missing'
     })
   }
 
@@ -68,7 +68,7 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
@@ -85,7 +85,7 @@ app.put('/api/persons/:id', (request, response, next) => {
     .then(updatedPerson => {
       if(updatedPerson===null)
       {
-        throw new Error("element to update not found")
+        throw new Error('element to update not found')
         //throw new Error({'hehe':'haha'})
       }else{
         response.json(updatedPerson)
@@ -97,6 +97,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
     .then(result => {
+      console.log('result', result)
       response.status(204).end()
     })
     .catch(error => next(error))
