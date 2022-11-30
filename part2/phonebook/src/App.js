@@ -52,10 +52,17 @@ const App = () => {
           setTimeout(() => {setSuccessMessage(null)}, 3000)
           })
         .catch(error => {
-          setErrorMessage(`Information of ${newName} has already been removed from server!`)
-          setTimeout(() => {setErrorMessage(null)}, 3000)
-          setPersons(persons.filter(n => n.id !== ifExistArray[0].id))
-          setFilteredPersons(persons.filter(n => n.id !== ifExistArray[0].id))
+          console.log(error.response.data.error)
+          if (error.response.data.error === 'element to update not found'){
+            setErrorMessage(`Information of ${newName} has already been removed from server!`)
+            setTimeout(() => {setErrorMessage(null)}, 3000)
+            setPersons(persons.filter(n => n.id !== ifExistArray[0].id))
+            setFilteredPersons(persons.filter(n => n.id !== ifExistArray[0].id))
+          } else {
+            setErrorMessage(error.response.data.error)
+            setTimeout(() => {setErrorMessage(null)}, 3000)
+          }
+          
           })
       }
     } else {
@@ -70,7 +77,11 @@ const App = () => {
           setSuccessMessage(`Added ${notePerson.name} `)
           setTimeout(() => {setSuccessMessage(null)}, 3000)
         })
-        .catch(error=>console.log(error.message))
+        .catch(error=> {
+          console.log(error.response.data.error)
+          setErrorMessage(error.response.data.error)
+          setTimeout(() => {setErrorMessage(null)}, 3000)
+        })
       
     }
   }
