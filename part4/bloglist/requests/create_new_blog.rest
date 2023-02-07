@@ -1,0 +1,10 @@
+post http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiaWQiOiI2M2UwM2FjNWRhMjYwNjUwNzY4YjQyOTQiLCJpYXQiOjE2NzU2NjEzNjF9.bpfZgqnaSPQtEwtclwPWlOy2ycjJJNFCbk8BDQ-l4QM
+
+{
+	"title": "post4",
+	"author": "cristian",
+	"url": "www.www",
+	"likes": 1,
+}
